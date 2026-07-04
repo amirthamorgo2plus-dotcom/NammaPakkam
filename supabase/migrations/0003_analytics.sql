@@ -12,6 +12,9 @@ create table if not exists page_views (
   primary key (path, viewed_at)
 );
 
+-- Fast date-range scans for the external dashboard's charts/trends.
+create index if not exists page_views_date_idx on page_views (viewed_at desc);
+
 alter table page_views enable row level security;
 
 -- Lock the table down: no anon/authenticated access at all. The service-role
