@@ -28,7 +28,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['system-ui', 'Segoe UI', 'Noto Sans Tamil', 'sans-serif'],
+        sans: ['system-ui', 'Segoe UI', 'Noto Sans Tamil', 'Noto Sans Devanagari', 'sans-serif'],
       },
     },
   },

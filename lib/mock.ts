@@ -4,14 +4,14 @@ import type { Business, Category, Notice } from './types';
 export const MOCK_BLOCKS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 export const MOCK_CATEGORIES: Category[] = [
-  { id: 'c1', community_id: 'm', slug: 'tuition', name_en: 'Home Tuition', name_ta: 'வீட்டுப் பயிற்சி', icon: '📚', sort_order: 10, is_active: true },
-  { id: 'c2', community_id: 'm', slug: 'tiffin', name_en: 'Tiffin / Food', name_ta: 'டிபன் / உணவு', icon: '🍱', sort_order: 20, is_active: true },
-  { id: 'c3', community_id: 'm', slug: 'clothing', name_en: 'Clothing & Sarees', name_ta: 'ஆடை & சேலை', icon: '🥻', sort_order: 30, is_active: true },
-  { id: 'c4', community_id: 'm', slug: 'doctor', name_en: 'Doctor / Clinic', name_ta: 'மருத்துவர்', icon: '🩺', sort_order: 40, is_active: true },
-  { id: 'c5', community_id: 'm', slug: 'plumber', name_en: 'Plumber', name_ta: 'குழாய் பணியாளர்', icon: '🔧', sort_order: 50, is_active: true },
-  { id: 'c6', community_id: 'm', slug: 'electrician', name_en: 'Electrician', name_ta: 'மின் பணியாளர்', icon: '💡', sort_order: 60, is_active: true },
-  { id: 'c7', community_id: 'm', slug: 'grocery', name_en: 'Grocery', name_ta: 'மளிகை', icon: '🛒', sort_order: 70, is_active: true },
-  { id: 'c8', community_id: 'm', slug: 'beautician', name_en: 'Beautician / Salon', name_ta: 'அழகுக்கலை', icon: '💇', sort_order: 80, is_active: true },
+  { id: 'c1', community_id: 'm', slug: 'tuition', name_en: 'Home Tuition', name_ta: 'வீட்டுப் பயிற்சி', name_hi: 'गृह ट्यूशन', icon: '📚', sort_order: 10, is_active: true },
+  { id: 'c2', community_id: 'm', slug: 'tiffin', name_en: 'Tiffin / Food', name_ta: 'டிபன் / உணவு', name_hi: 'टिफिन / खाना', icon: '🍱', sort_order: 20, is_active: true },
+  { id: 'c3', community_id: 'm', slug: 'clothing', name_en: 'Clothing & Sarees', name_ta: 'ஆடை & சேலை', name_hi: 'कपड़े और साड़ी', icon: '🥻', sort_order: 30, is_active: true },
+  { id: 'c4', community_id: 'm', slug: 'doctor', name_en: 'Doctor / Clinic', name_ta: 'மருத்துவர்', name_hi: 'डॉक्टर / क्लिनिक', icon: '🩺', sort_order: 40, is_active: true },
+  { id: 'c5', community_id: 'm', slug: 'plumber', name_en: 'Plumber', name_ta: 'குழாய் பணியாளர்', name_hi: 'प्लंबर', icon: '🔧', sort_order: 50, is_active: true },
+  { id: 'c6', community_id: 'm', slug: 'electrician', name_en: 'Electrician', name_ta: 'மின் பணியாளர்', name_hi: 'इलेक्ट्रीशियन', icon: '💡', sort_order: 60, is_active: true },
+  { id: 'c7', community_id: 'm', slug: 'grocery', name_en: 'Grocery', name_ta: 'மளிகை', name_hi: 'किराना', icon: '🛒', sort_order: 70, is_active: true },
+  { id: 'c8', community_id: 'm', slug: 'beautician', name_en: 'Beautician / Salon', name_ta: 'அழகுக்கலை', name_hi: 'ब्यूटीशियन / सैलून', icon: '💇', sort_order: 80, is_active: true },
 ];
 
 const cat = (id: string) => MOCK_CATEGORIES.find((c) => c.id === id) ?? null;

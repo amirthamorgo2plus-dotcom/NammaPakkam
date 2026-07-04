@@ -14,6 +14,7 @@ export interface Category {
   slug: string;
   name_en: string;
   name_ta: string | null;
+  name_hi: string | null;
   icon: string | null;
   sort_order: number;
   is_active: boolean;

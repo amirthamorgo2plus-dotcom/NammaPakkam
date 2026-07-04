@@ -28,13 +28,20 @@ export default function Header() {
             </div>
           </Link>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setLang((lang === 'en' ? 'ta' : 'en') as Lang)}
-              className="rounded-lg bg-brand-600/60 px-2.5 py-1 text-xs font-semibold"
-              aria-label="Toggle language"
-            >
-              {lang === 'en' ? 'தமிழ்' : 'EN'}
-            </button>
+            <div className="flex items-center rounded-lg bg-brand-600/60 p-0.5 text-xs font-semibold" role="group" aria-label="Language">
+              {(['en', 'ta', 'hi'] as Lang[]).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
+                  className={`rounded-md px-2 py-0.5 transition ${
+                    lang === l ? 'bg-white text-brand-600' : 'text-white/90'
+                  }`}
+                  aria-pressed={lang === l}
+                >
+                  {l === 'en' ? 'EN' : l === 'ta' ? 'த' : 'हि'}
+                </button>
+              ))}
+            </div>
             <Link href="/login" className="rounded-lg bg-white/15 px-3 py-1 text-sm font-semibold">
               {t.login}
             </Link>

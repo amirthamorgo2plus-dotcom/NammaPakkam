@@ -72,6 +72,7 @@ create table if not exists categories (
   slug         text not null,
   name_en      text not null,
   name_ta      text,
+  name_hi      text,
   icon         text,                          -- emoji or lucide icon name
   sort_order   int default 100,
   is_active    boolean default true,
@@ -392,23 +393,23 @@ insert into communities (slug, name, city, blocks)
 values ('pakkam', 'Pakkam Community', 'Mumbai', array['A','B','C','D','E','F'])
 on conflict (slug) do nothing;
 
-insert into categories (community_id, slug, name_en, name_ta, icon, sort_order)
-select c.id, x.slug, x.name_en, x.name_ta, x.icon, x.sort_order
+insert into categories (community_id, slug, name_en, name_ta, name_hi, icon, sort_order)
+select c.id, x.slug, x.name_en, x.name_ta, x.name_hi, x.icon, x.sort_order
 from communities c,
 (values
-  ('tuition',    'Home Tuition',  'வீட்டுப் பயிற்சி', '📚', 10),
-  ('tiffin',     'Tiffin / Food', 'டிபன் / உணவு',     '🍱', 20),
-  ('clothing',   'Clothing & Sarees', 'ஆடை & சேலை',  '🥻', 30),
-  ('doctor',     'Doctor / Clinic', 'மருத்துவர்',     '🩺', 40),
-  ('plumber',    'Plumber',       'குழாய் பணியாளர்',  '🔧', 50),
-  ('electrician','Electrician',   'மின் பணியாளர்',    '💡', 60),
-  ('grocery',    'Grocery',       'மளிகை',            '🛒', 70),
-  ('beautician', 'Beautician / Salon', 'அழகுக்கலை',   '💇', 80),
-  ('carpenter',  'Carpenter',     'தச்சர்',           '🪚', 90),
-  ('maid',       'Maid / Cook',   'வேலையாள் / சமையல்', '🧹', 100),
-  ('tailor',     'Tailor',        'தையல்காரர்',       '🧵', 110),
-  ('cab',        'Cab / Driver',  'கார் / டிரைவர்',    '🚗', 120),
-  ('pet',        'Pet Care',      'செல்லப்பிராணி',     '🐾', 130),
-  ('other',      'Other',         'மற்றவை',           '📌', 999)
-) as x(slug, name_en, name_ta, icon, sort_order)
+  ('tuition',    'Home Tuition',  'வீட்டுப் பயிற்சி', 'गृह ट्यूशन',       '📚', 10),
+  ('tiffin',     'Tiffin / Food', 'டிபன் / உணவு',     'टिफिन / खाना',      '🍱', 20),
+  ('clothing',   'Clothing & Sarees', 'ஆடை & சேலை',  'कपड़े और साड़ी',     '🥻', 30),
+  ('doctor',     'Doctor / Clinic', 'மருத்துவர்',     'डॉक्टर / क्लिनिक',   '🩺', 40),
+  ('plumber',    'Plumber',       'குழாய் பணியாளர்',  'प्लंबर',            '🔧', 50),
+  ('electrician','Electrician',   'மின் பணியாளர்',    'इलेक्ट्रीशियन',      '💡', 60),
+  ('grocery',    'Grocery',       'மளிகை',            'किराना',            '🛒', 70),
+  ('beautician', 'Beautician / Salon', 'அழகுக்கலை',   'ब्यूटीशियन / सैलून', '💇', 80),
+  ('carpenter',  'Carpenter',     'தச்சர்',           'बढ़ई',              '🪚', 90),
+  ('maid',       'Maid / Cook',   'வேலையாள் / சமையல்', 'मेड / रसोइया',      '🧹', 100),
+  ('tailor',     'Tailor',        'தையல்காரர்',       'दर्जी',             '🧵', 110),
+  ('cab',        'Cab / Driver',  'கார் / டிரைவர்',    'कैब / ड्राइवर',      '🚗', 120),
+  ('pet',        'Pet Care',      'செல்லப்பிராணி',     'पालतू देखभाल',       '🐾', 130),
+  ('other',      'Other',         'மற்றவை',           'अन्य',              '📌', 999)
+) as x(slug, name_en, name_ta, name_hi, icon, sort_order)
 on conflict (community_id, slug) do nothing;

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 
-export type Lang = 'en' | 'ta';
+export type Lang = 'en' | 'ta' | 'hi';
 
 const dict = {
   en: {
@@ -67,6 +67,37 @@ const dict = {
     seeListings: 'பட்டியலைப் பார்',
     pinned: 'பின் செய்யப்பட்டது',
   },
+  hi: {
+    appName: 'पक्कम',
+    tagline: 'आपका समुदाय, एक टैप दूर',
+    directory: 'निर्देशिका',
+    classifieds: 'खरीद-बिक्री',
+    ask: 'समुदाय से पूछें',
+    notices: 'सूचनाएं',
+    blocks: 'ब्लॉक',
+    search: 'व्यवसाय, सेवाएं खोजें…',
+    openNow: 'अभी खुला',
+    topRated: 'शीर्ष रेटेड',
+    featured: 'विशेष',
+    categories: 'श्रेणियाँ',
+    viewAll: 'सभी देखें',
+    call: 'कॉल',
+    whatsapp: 'व्हाट्सएप',
+    verified: 'सत्यापित',
+    login: 'लॉगिन',
+    signup: 'शामिल हों',
+    logout: 'लॉगआउट',
+    admin: 'एडमिन',
+    pending: 'स्वीकृति लंबित',
+    addListing: 'अपना व्यवसाय जोड़ें',
+    noResults: 'कुछ नहीं मिला। दूसरी श्रेणी या कीवर्ड आज़माएं।',
+    sortRating: 'रेटिंग',
+    sortNewest: 'नवीनतम',
+    allCategories: 'सभी श्रेणियाँ',
+    facilities: 'इस ब्लॉक की सेवाएं',
+    seeListings: 'सूची देखें',
+    pinned: 'पिन किया गया',
+  },
 };
 
 export type Dict = typeof dict.en;
@@ -81,7 +112,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLang] = useState<Lang>('en');
   useEffect(() => {
     const saved = (typeof window !== 'undefined' && localStorage.getItem('pakkam-lang')) as Lang | null;
-    if (saved === 'en' || saved === 'ta') setLang(saved);
+    if (saved === 'en' || saved === 'ta' || saved === 'hi') setLang(saved);
   }, []);
   const set = (l: Lang) => {
     setLang(l);
@@ -96,7 +127,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
 export const useI18n = () => useContext(LangContext);
 
-// Pick the right category name for the active language.
-export function catName(c: { name_en: string; name_ta: string | null }, lang: Lang) {
-  return lang === 'ta' && c.name_ta ? c.name_ta : c.name_en;
+// Pick the right category name for the active language (fall back to English).
+export function catName(
+  c: { name_en: string; name_ta: string | null; name_hi?: string | null },
+  lang: Lang
+) {
+  if (lang === 'ta') return c.name_ta || c.name_en;
+  if (lang === 'hi') return c.name_hi || c.name_en;
+  return c.name_en;
 }
