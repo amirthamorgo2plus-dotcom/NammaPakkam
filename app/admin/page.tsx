@@ -22,10 +22,10 @@ export default async function AdminDashboard() {
         <h2 className="font-bold mb-3">👥 Visitors</h2>
         <div className="grid grid-cols-4 gap-2 text-center">
           {[
-            { label: 'Unique', value: stats.uniqueVisitors },
-            { label: 'Today', value: stats.todayViews },
-            { label: '7-day', value: stats.weekVisitors },
-            { label: 'Page views', value: stats.totalPageViews },
+            { label: 'Today', value: stats.today },
+            { label: '7-day', value: stats.week },
+            { label: '30-day', value: stats.month },
+            { label: 'All-time', value: stats.total },
           ].map((s) => (
             <div key={s.label}>
               <div className="text-2xl font-bold text-brand-600">{s.value}</div>

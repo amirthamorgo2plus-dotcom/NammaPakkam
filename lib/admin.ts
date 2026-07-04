@@ -47,15 +47,15 @@ export async function getAdminStats() {
 export async function getVisitorStats() {
   if (!isSupabaseConfigured) {
     // Representative demo numbers so the dashboard isn't empty.
-    return { uniqueVisitors: 342, todayViews: 87, weekVisitors: 210, totalPageViews: 1580 };
+    return { today: 87, week: 210, month: 640, total: 1580 };
   }
   const sb = await createClient();
-  const { data } = await sb.rpc('visitor_stats').single();
+  const { data } = await sb.rpc('page_view_totals').single();
   const s = (data as any) ?? {};
   return {
-    uniqueVisitors: s.unique_visitors ?? 0,
-    todayViews: s.today_views ?? 0,
-    weekVisitors: s.week_visitors ?? 0,
-    totalPageViews: s.total_views ?? 0,
+    today: s.today ?? 0,
+    week: s.week ?? 0,
+    month: s.month ?? 0,
+    total: s.total ?? 0,
   };
 }
