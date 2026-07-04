@@ -1,0 +1,102 @@
+import { createClient } from './supabase/server';
+import type { Business, Category, Notice } from './types';
+import { MOCK_BUSINESSES, MOCK_CATEGORIES, MOCK_NOTICES, MOCK_BLOCKS, isSupabaseConfigured } from './mock';
+
+export interface DirectoryFilter {
+  q?: string;
+  category?: string; // slug
+  block?: string;
+  openNow?: boolean;
+  sort?: 'rating' | 'newest';
+}
+
+// ── Categories ──────────────────────────────────────────────────────────────
+export async function getCategories(): Promise<Category[]> {
+  if (!isSupabaseConfigured) return MOCK_CATEGORIES;
+  const sb = await createClient();
+  const { data } = await sb.from('categories').select('*').eq('is_active', true).order('sort_order');
+  return data ?? MOCK_CATEGORIES;
+}
+
+// ── Blocks ──────────────────────────────────────────────────────────────────
+export async function getBlocks(): Promise<string[]> {
+  if (!isSupabaseConfigured) return MOCK_BLOCKS;
+  const sb = await createClient();
+  const { data } = await sb.from('communities').select('blocks').limit(1).single();
+  return data?.blocks ?? MOCK_BLOCKS;
+}
+
+// ── Notices ─────────────────────────────────────────────────────────────────
+export async function getNotices(): Promise<Notice[]> {
+  if (!isSupabaseConfigured) return MOCK_NOTICES;
+  const sb = await createClient();
+  const { data } = await sb
+    .from('notices')
+    .select('*')
+    .order('is_pinned', { ascending: false })
+    .order('published_at', { ascending: false });
+  return data ?? MOCK_NOTICES;
+}
+
+// ── Businesses ──────────────────────────────────────────────────────────────
+function applyMockFilter(list: Business[], f: DirectoryFilter): Business[] {
+  let out = [...list];
+  if (f.category) out = out.filter((b) => b.category?.slug === f.category);
+  if (f.block) out = out.filter((b) => b.block === f.block);
+  if (f.q) {
+    const q = f.q.toLowerCase();
+    out = out.filter(
+      (b) => b.name.toLowerCase().includes(q) || (b.description ?? '').toLowerCase().includes(q) || (b.owner_name ?? '').toLowerCase().includes(q)
+    );
+  }
+  if (f.openNow) {
+    const { isOpenNow } = require('./openNow');
+    out = out.filter((b) => isOpenNow(b.timings));
+  }
+  out.sort((a, b) => {
+    if (a.is_featured !== b.is_featured) return a.is_featured ? -1 : 1;
+    if (f.sort === 'newest') return a.created_at < b.created_at ? 1 : -1;
+    return b.rating_avg - a.rating_avg;
+  });
+  return out;
+}
+
+export async function getBusinesses(f: DirectoryFilter = {}): Promise<Business[]> {
+  if (!isSupabaseConfigured) return applyMockFilter(MOCK_BUSINESSES, f);
+
+  const sb = await createClient();
+  let query = sb
+    .from('businesses')
+    .select('*, category:categories(*)')
+    .eq('status', 'approved');
+
+  if (f.block) query = query.eq('block', f.block);
+  if (f.q) query = query.textSearch('search_tsv', f.q, { type: 'websearch', config: 'simple' });
+  if (f.sort === 'newest') query = query.order('created_at', { ascending: false });
+  else query = query.order('rating_avg', { ascending: false });
+
+  const { data } = await query.limit(100);
+  let rows = (data ?? []) as Business[];
+
+  if (f.category) rows = rows.filter((b) => b.category?.slug === f.category);
+  if (f.openNow) {
+    const { isOpenNow } = require('./openNow');
+    rows = rows.filter((b) => isOpenNow(b.timings));
+  }
+  // featured-first
+  rows.sort((a, b) => (a.is_featured === b.is_featured ? 0 : a.is_featured ? -1 : 1));
+  return rows;
+}
+
+export async function getBusiness(id: string): Promise<Business | null> {
+  if (!isSupabaseConfigured) return MOCK_BUSINESSES.find((b) => b.id === id) ?? null;
+  const sb = await createClient();
+  const { data } = await sb.from('businesses').select('*, category:categories(*)').eq('id', id).single();
+  if (data) sb.rpc('bump_business_view', { bid: id });
+  return (data as Business) ?? null;
+}
+
+export async function getFeatured(): Promise<Business[]> {
+  const all = await getBusinesses({ sort: 'rating' });
+  return all.filter((b) => b.is_featured).slice(0, 5);
+}
