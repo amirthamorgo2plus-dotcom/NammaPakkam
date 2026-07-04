@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/lib/i18n';
 import Header from '@/components/Header';
+import SponsorStrip from '@/components/SponsorStrip';
+import Analytics from '@/components/Analytics';
 
 export const metadata: Metadata = {
   title: 'Pakkam — Community Directory',
@@ -21,10 +23,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <LanguageProvider>
-          <div className="mx-auto max-w-screen-sm min-h-screen flex flex-col">
+          <div className="mx-auto max-w-screen-sm md:max-w-2xl min-h-screen flex flex-col md:border-x md:border-sand-200 md:shadow-sm bg-sand-50">
             <Header />
-            <main className="flex-1 pb-20">{children}</main>
+            <main className="flex-1 pb-24">{children}</main>
+            <SponsorStrip />
           </div>
+          <Analytics />
         </LanguageProvider>
       </body>
     </html>

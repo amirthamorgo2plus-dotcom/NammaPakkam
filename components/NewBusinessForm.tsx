@@ -5,11 +5,13 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import type { Category } from '@/lib/types';
+import ImageUpload from './ImageUpload';
 
 export default function NewBusinessForm({ categories }: { categories: Category[] }) {
   const router = useRouter();
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [photos, setPhotos] = useState<string[]>([]);
 
   const configured =
     !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -49,6 +51,7 @@ export default function NewBusinessForm({ categories }: { categories: Category[]
       phone: fd.get('phone'),
       block: fd.get('block'),
       flat_no: fd.get('flat_no'),
+      photos,
       status: 'pending',
     });
     setBusy(false);
@@ -70,6 +73,7 @@ export default function NewBusinessForm({ categories }: { categories: Category[]
       </select>
       <input name="owner_name" placeholder="Owner name" className="input" />
       <textarea name="description" rows={3} placeholder="What do you offer?" className="input" />
+      <ImageUpload value={photos} onChange={setPhotos} folder="listings" />
       <div className="flex gap-2">
         <input name="whatsapp" placeholder="WhatsApp number" className="input" />
         <input name="phone" placeholder="Call number" className="input" />

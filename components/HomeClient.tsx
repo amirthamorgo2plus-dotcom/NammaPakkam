@@ -87,7 +87,7 @@ export default function HomeClient({
       {featured.length > 0 && (
         <section>
           <h2 className="mb-2 font-bold text-stone-700">⭐ {t.featured}</h2>
-          <div className="space-y-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             {featured.map((b) => (
               <BusinessCard key={b.id} b={b} />
             ))}

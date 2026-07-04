@@ -95,13 +95,13 @@ export default function DirectoryClient({
       </div>
 
       {/* Results */}
-      <div className="space-y-3 pt-1">
-        {businesses.length === 0 ? (
-          <div className="card p-8 text-center text-stone-500">{t.noResults}</div>
-        ) : (
-          businesses.map((b) => <BusinessCard key={b.id} b={b} />)
-        )}
-      </div>
+      {businesses.length === 0 ? (
+        <div className="card p-8 text-center text-stone-500">{t.noResults}</div>
+      ) : (
+        <div className="grid gap-3 sm:grid-cols-2 pt-1">
+          {businesses.map((b) => <BusinessCard key={b.id} b={b} />)}
+        </div>
+      )}
     </div>
   );
 }

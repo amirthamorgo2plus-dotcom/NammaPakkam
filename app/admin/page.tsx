@@ -12,11 +12,29 @@ export default async function AdminDashboard() {
     { label: 'Pending residents', value: stats.pendingResidents, href: '/admin/residents', accent: 'bg-amber-100 text-amber-700' },
     { label: 'Pending listings', value: stats.pendingListings, href: '/admin/listings', accent: 'bg-rose-100 text-rose-700' },
     { label: 'Live listings', value: stats.totalListings, href: '/admin/listings', accent: 'bg-green-100 text-green-700' },
-    { label: 'Total views', value: stats.totalViews, href: '#', accent: 'bg-blue-100 text-blue-700' },
+    { label: 'Listing views', value: stats.totalViews, href: '#', accent: 'bg-blue-100 text-blue-700' },
   ];
 
   return (
     <div className="space-y-5">
+      {/* Visitor analytics */}
+      <section className="card p-4">
+        <h2 className="font-bold mb-3">👥 Visitors</h2>
+        <div className="grid grid-cols-4 gap-2 text-center">
+          {[
+            { label: 'Unique', value: stats.uniqueVisitors },
+            { label: 'Today', value: stats.todayViews },
+            { label: '7-day', value: stats.weekVisitors },
+            { label: 'Page views', value: stats.totalPageViews },
+          ].map((s) => (
+            <div key={s.label}>
+              <div className="text-2xl font-bold text-brand-600">{s.value}</div>
+              <div className="text-[11px] text-stone-500">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <div className="grid grid-cols-2 gap-3">
         {cards.map((c) => (
           <Link key={c.label} href={c.href} className="card p-4">

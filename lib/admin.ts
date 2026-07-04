@@ -32,11 +32,30 @@ export async function getAllListings(): Promise<Business[]> {
 
 export async function getAdminStats() {
   const [residents, listings] = await Promise.all([getPendingResidents(), getAllListings()]);
+  const visitors = await getVisitorStats();
+
   return {
     pendingResidents: residents.length,
     pendingListings: listings.filter((b) => b.status === 'pending').length,
     totalListings: listings.filter((b) => b.status === 'approved').length,
     totalViews: listings.reduce((s, b) => s + (b.view_count ?? 0), 0),
     totalClicks: listings.reduce((s, b) => s + (b.click_count ?? 0), 0),
+    ...visitors,
+  };
+}
+
+export async function getVisitorStats() {
+  if (!isSupabaseConfigured) {
+    // Representative demo numbers so the dashboard isn't empty.
+    return { uniqueVisitors: 342, todayViews: 87, weekVisitors: 210, totalPageViews: 1580 };
+  }
+  const sb = await createClient();
+  const { data } = await sb.rpc('visitor_stats').single();
+  const s = (data as any) ?? {};
+  return {
+    uniqueVisitors: s.unique_visitors ?? 0,
+    todayViews: s.today_views ?? 0,
+    weekVisitors: s.week_visitors ?? 0,
+    totalPageViews: s.total_views ?? 0,
   };
 }
