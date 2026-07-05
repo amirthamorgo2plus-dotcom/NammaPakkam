@@ -1,23 +1,9 @@
-import Link from 'next/link';
-import { getBlocks, getCategories, getFeatured, getNotices } from '@/lib/data';
-import HomeClient from '@/components/HomeClient';
+import { getCommunities } from '@/lib/data';
+import CommunitiesClient from '@/components/CommunitiesClient';
 
 export const dynamic = 'force-dynamic';
 
-export default async function HomePage() {
-  const [blocks, categories, featured, notices] = await Promise.all([
-    getBlocks(),
-    getCategories(),
-    getFeatured(),
-    getNotices(),
-  ]);
-
-  return (
-    <HomeClient
-      blocks={blocks}
-      categories={categories}
-      featured={featured}
-      pinnedNotice={notices.find((n) => n.is_pinned) ?? notices[0] ?? null}
-    />
-  );
+export default async function LandingPage() {
+  const communities = await getCommunities();
+  return <CommunitiesClient communities={communities} />;
 }

@@ -1,7 +1,14 @@
-import type { Business, Category, Notice } from './types';
+import type { Business, Category, Community, Notice } from './types';
 
 // Demo data so the app renders before Supabase is connected (free, offline).
 export const MOCK_BLOCKS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+// Multiple communities so the generic landing page can showcase expansion.
+export const MOCK_COMMUNITIES: Community[] = [
+  { id: 'm', slug: 'pakkam', name: 'Namma Pakkam', city: 'Coimbatore', blocks: MOCK_BLOCKS, image_url: null, homes: 1000, status: 'active', theme: 'from-brand-400 to-brand-600', emoji: '🏡' },
+  { id: 'm2', slug: 'green-meadows', name: 'Green Meadows', city: 'Coimbatore', blocks: ['A', 'B', 'C'], image_url: null, homes: 480, status: 'coming_soon', theme: 'from-emerald-400 to-emerald-600', emoji: '🌿' },
+  { id: 'm3', slug: 'lake-view', name: 'Lake View Residency', city: 'Chennai', blocks: ['1', '2', '3', '4'], image_url: null, homes: 720, status: 'coming_soon', theme: 'from-sky-400 to-indigo-500', emoji: '🌊' },
+];
 
 export const MOCK_CATEGORIES: Category[] = [
   { id: 'c1', community_id: 'm', slug: 'tuition', name_en: 'Home Tuition', name_ta: 'வீட்டுப் பயிற்சி', name_hi: 'गृह ट्यूशन', icon: '📚', sort_order: 10, is_active: true },

@@ -5,13 +5,17 @@ import BusinessDetail from '@/components/BusinessDetail';
 
 export const dynamic = 'force-dynamic';
 
-export default async function BusinessPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default async function CommunityBusiness({
+  params,
+}: {
+  params: Promise<{ slug: string; id: string }>;
+}) {
+  const { slug, id } = await params;
   const b = await getBusiness(id);
   if (!b) notFound();
   return (
     <div className="px-4 pt-4">
-      <Link href="/directory" className="text-sm text-brand-600">← Back</Link>
+      <Link href={`/c/${slug}/directory`} className="text-sm text-brand-600">← Back</Link>
       <BusinessDetail b={b} />
     </div>
   );

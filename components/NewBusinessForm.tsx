@@ -6,9 +6,11 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import type { Category } from '@/lib/types';
 import ImageUpload from './ImageUpload';
+import { useCommunityBase } from '@/hooks/useCommunityBase';
 
 export default function NewBusinessForm({ categories }: { categories: Category[] }) {
   const router = useRouter();
+  const base = useCommunityBase();
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [photos, setPhotos] = useState<string[]>([]);
@@ -58,7 +60,7 @@ export default function NewBusinessForm({ categories }: { categories: Category[]
     if (error) setMsg(error.message);
     else {
       setMsg('✅ Submitted! Pending admin approval.');
-      setTimeout(() => router.push('/'), 1500);
+      setTimeout(() => router.push(base || '/'), 1500);
     }
   }
 

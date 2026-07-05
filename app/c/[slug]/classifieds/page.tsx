@@ -1,4 +1,4 @@
-export default function ClassifiedsPage() {
+export default function CommunityClassifieds() {
   return (
     <div className="px-4 pt-4 space-y-4">
       <h1 className="text-lg font-bold">🏷️ Classifieds</h1>

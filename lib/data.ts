@@ -1,8 +1,16 @@
 import { createClient } from './supabase/server';
-import type { Business, Category, Notice } from './types';
-import { MOCK_BUSINESSES, MOCK_CATEGORIES, MOCK_NOTICES, MOCK_BLOCKS, isSupabaseConfigured } from './mock';
+import type { Business, Category, Community, Notice } from './types';
+import {
+  MOCK_BUSINESSES,
+  MOCK_CATEGORIES,
+  MOCK_COMMUNITIES,
+  MOCK_NOTICES,
+  MOCK_BLOCKS,
+  isSupabaseConfigured,
+} from './mock';
 
 export interface DirectoryFilter {
+  slug?: string; // community slug (multi-tenant scoping)
   q?: string;
   category?: string; // slug
   block?: string;
@@ -10,31 +18,64 @@ export interface DirectoryFilter {
   sort?: 'rating' | 'newest';
 }
 
+// ── Communities ─────────────────────────────────────────────────────────────
+export async function getCommunities(): Promise<Community[]> {
+  if (!isSupabaseConfigured) return MOCK_COMMUNITIES;
+  const sb = await createClient();
+  const { data } = await sb.from('communities').select('*').order('created_at');
+  return (data as Community[]) ?? MOCK_COMMUNITIES;
+}
+
+export async function getCommunityBySlug(slug: string): Promise<Community | null> {
+  if (!isSupabaseConfigured) return MOCK_COMMUNITIES.find((c) => c.slug === slug) ?? null;
+  const sb = await createClient();
+  const { data } = await sb.from('communities').select('*').eq('slug', slug).single();
+  return (data as Community) ?? null;
+}
+
+// Resolve a slug → community id for scoping real queries.
+async function communityId(sb: any, slug?: string): Promise<string | null> {
+  if (!slug) return null;
+  const { data } = await sb.from('communities').select('id').eq('slug', slug).single();
+  return data?.id ?? null;
+}
+
 // ── Categories ──────────────────────────────────────────────────────────────
-export async function getCategories(): Promise<Category[]> {
+export async function getCategories(slug?: string): Promise<Category[]> {
   if (!isSupabaseConfigured) return MOCK_CATEGORIES;
   const sb = await createClient();
-  const { data } = await sb.from('categories').select('*').eq('is_active', true).order('sort_order');
+  let q = sb.from('categories').select('*').eq('is_active', true).order('sort_order');
+  const cid = await communityId(sb, slug);
+  if (cid) q = q.eq('community_id', cid);
+  const { data } = await q;
   return data ?? MOCK_CATEGORIES;
 }
 
 // ── Blocks ──────────────────────────────────────────────────────────────────
-export async function getBlocks(): Promise<string[]> {
-  if (!isSupabaseConfigured) return MOCK_BLOCKS;
+export async function getBlocks(slug?: string): Promise<string[]> {
+  if (!isSupabaseConfigured) {
+    return MOCK_COMMUNITIES.find((c) => c.slug === slug)?.blocks ?? MOCK_BLOCKS;
+  }
   const sb = await createClient();
-  const { data } = await sb.from('communities').select('blocks').limit(1).single();
+  const q = slug
+    ? sb.from('communities').select('blocks').eq('slug', slug).single()
+    : sb.from('communities').select('blocks').limit(1).single();
+  const { data } = await q;
   return data?.blocks ?? MOCK_BLOCKS;
 }
 
 // ── Notices ─────────────────────────────────────────────────────────────────
-export async function getNotices(): Promise<Notice[]> {
+export async function getNotices(slug?: string): Promise<Notice[]> {
   if (!isSupabaseConfigured) return MOCK_NOTICES;
   const sb = await createClient();
-  const { data } = await sb
+  let q = sb
     .from('notices')
     .select('*')
     .order('is_pinned', { ascending: false })
     .order('published_at', { ascending: false });
+  const cid = await communityId(sb, slug);
+  if (cid) q = q.eq('community_id', cid);
+  const { data } = await q;
   return data ?? MOCK_NOTICES;
 }
 
@@ -70,6 +111,8 @@ export async function getBusinesses(f: DirectoryFilter = {}): Promise<Business[]
     .select('*, category:categories(*)')
     .eq('status', 'approved');
 
+  const cid = await communityId(sb, f.slug);
+  if (cid) query = query.eq('community_id', cid);
   if (f.block) query = query.eq('block', f.block);
   if (f.q) query = query.textSearch('search_tsv', f.q, { type: 'websearch', config: 'simple' });
   if (f.sort === 'newest') query = query.order('created_at', { ascending: false });
@@ -96,7 +139,7 @@ export async function getBusiness(id: string): Promise<Business | null> {
   return (data as Business) ?? null;
 }
 
-export async function getFeatured(): Promise<Business[]> {
-  const all = await getBusinesses({ sort: 'rating' });
+export async function getFeatured(slug?: string): Promise<Business[]> {
+  const all = await getBusinesses({ slug, sort: 'rating' });
   return all.filter((b) => b.is_featured).slice(0, 5);
 }

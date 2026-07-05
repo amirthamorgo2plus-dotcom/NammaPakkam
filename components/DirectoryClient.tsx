@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useI18n, catName } from '@/lib/i18n';
 import type { Business, Category } from '@/lib/types';
 import BusinessCard from './BusinessCard';
+import { useCommunityBase } from '@/hooks/useCommunityBase';
 
 export default function DirectoryClient({
   businesses,
@@ -18,6 +19,7 @@ export default function DirectoryClient({
   const { t, lang } = useI18n();
   const router = useRouter();
   const params = useSearchParams();
+  const base = useCommunityBase();
   const [q, setQ] = useState(initial.q ?? '');
 
   // Update one query param, preserving the rest.
@@ -25,7 +27,7 @@ export default function DirectoryClient({
     const next = new URLSearchParams(params.toString());
     if (val == null || val === '') next.delete(key);
     else next.set(key, val);
-    router.push(`/directory?${next.toString()}`);
+    router.push(`${base}/directory?${next.toString()}`);
   };
 
   const submitSearch = (e: React.FormEvent) => {

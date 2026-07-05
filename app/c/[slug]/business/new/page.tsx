@@ -3,8 +3,9 @@ import NewBusinessForm from '@/components/NewBusinessForm';
 
 export const dynamic = 'force-dynamic';
 
-export default async function NewBusinessPage() {
-  const categories = await getCategories();
+export default async function CommunityNewBusiness({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const categories = await getCategories(slug);
   return (
     <div className="px-4 pt-4">
       <h1 className="text-lg font-bold mb-1">➕ List your business</h1>

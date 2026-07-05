@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useI18n, catName } from '@/lib/i18n';
 import type { Business, Category, Notice } from '@/lib/types';
 import BusinessCard from './BusinessCard';
+import { useCommunityBase } from '@/hooks/useCommunityBase';
 
 export default function HomeClient({
   blocks,
@@ -17,11 +18,12 @@ export default function HomeClient({
   pinnedNotice: Notice | null;
 }) {
   const { t, lang } = useI18n();
+  const base = useCommunityBase();
 
   return (
     <div className="space-y-6 px-4 pt-4">
       {/* Search shortcut */}
-      <Link href="/directory" className="block">
+      <Link href={`${base}/directory`} className="block">
         <div className="input flex items-center gap-2 text-stone-400 cursor-text">
           🔍 <span>{t.search}</span>
         </div>
@@ -29,7 +31,7 @@ export default function HomeClient({
 
       {/* Pinned notice strip */}
       {pinnedNotice && (
-        <Link href="/notices" className="block">
+        <Link href={`${base}/notices`} className="block">
           <div className="card flex items-start gap-3 p-3 border-l-4 border-l-brand-500">
             <span className="text-xl">📢</span>
             <div className="min-w-0">
@@ -49,7 +51,7 @@ export default function HomeClient({
           {blocks.map((blk) => (
             <Link
               key={blk}
-              href={`/directory?block=${encodeURIComponent(blk)}`}
+              href={`${base}/directory?block=${encodeURIComponent(blk)}`}
               className="card grid place-items-center gap-1 py-5 hover:border-brand-300 transition"
             >
               <span className="grid h-12 w-12 place-items-center rounded-full bg-brand-100 text-brand-700 text-xl font-bold">
@@ -65,13 +67,13 @@ export default function HomeClient({
       <section>
         <div className="mb-2 flex items-center justify-between">
           <h2 className="font-bold text-stone-700">{t.categories}</h2>
-          <Link href="/directory" className="text-sm text-brand-600">{t.viewAll}</Link>
+          <Link href={`${base}/directory`} className="text-sm text-brand-600">{t.viewAll}</Link>
         </div>
         <div className="grid grid-cols-4 gap-3">
           {categories.map((c) => (
             <Link
               key={c.id}
-              href={`/directory?category=${c.slug}`}
+              href={`${base}/directory?category=${c.slug}`}
               className="flex flex-col items-center gap-1 text-center"
             >
               <span className="grid h-14 w-14 place-items-center rounded-2xl bg-white border border-sand-200 text-2xl shadow-sm">
@@ -96,7 +98,7 @@ export default function HomeClient({
       )}
 
       {/* Add business CTA */}
-      <Link href="/business/new" className="btn-primary w-full">
+      <Link href={`${base}/business/new`} className="btn-primary w-full">
         ➕ {t.addListing}
       </Link>
     </div>

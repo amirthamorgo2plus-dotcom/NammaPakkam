@@ -2,8 +2,9 @@ import { getNotices } from '@/lib/data';
 
 export const dynamic = 'force-dynamic';
 
-export default async function NoticesPage() {
-  const notices = await getNotices();
+export default async function CommunityNotices({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const notices = await getNotices(slug);
   return (
     <div className="px-4 pt-4 space-y-3">
       <h1 className="text-lg font-bold">📢 Notices</h1>

@@ -6,9 +6,11 @@ import { useI18n } from '@/lib/i18n';
 import { isOpenNow, timingLabel } from '@/lib/openNow';
 import Stars from './Stars';
 import { createClient } from '@/lib/supabase/client';
+import { useCommunityBase } from '@/hooks/useCommunityBase';
 
 export default function BusinessCard({ b }: { b: Business }) {
   const { t } = useI18n();
+  const base = useCommunityBase();
   const open = isOpenNow(b.timings);
 
   // Fire-and-forget click tracking, then open the channel.
@@ -22,7 +24,7 @@ export default function BusinessCard({ b }: { b: Business }) {
 
   return (
     <div className={`card overflow-hidden ${b.is_featured ? 'ring-2 ring-amber-300' : ''}`}>
-      <Link href={`/business/${b.id}`} className="flex gap-3 p-3">
+      <Link href={`${base}/business/${b.id}`} className="flex gap-3 p-3">
         <div className="h-20 w-20 shrink-0 rounded-xl bg-sand-100 overflow-hidden grid place-items-center text-3xl">
           {b.photos?.[0] ? (
             // eslint-disable-next-line @next/next/no-img-element

@@ -8,6 +8,19 @@ export type ClassifiedKind = 'sell' | 'rent' | 'wanted' | 'lost' | 'found' | 'fr
 export type DayHours = [string, string] | null; // ["09:00","21:00"] or null = closed
 export type Timings = Partial<Record<'mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun', DayHours>>;
 
+export interface Community {
+  id: string;
+  slug: string;
+  name: string;
+  city: string | null;
+  blocks: string[];
+  image_url: string | null;
+  homes: number | null;
+  status: 'active' | 'coming_soon';
+  theme: string; // tailwind gradient classes for the card
+  emoji: string;
+}
+
 export interface Category {
   id: string;
   community_id: string;
