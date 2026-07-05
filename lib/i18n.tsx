@@ -6,7 +6,7 @@ export type Lang = 'en' | 'ta' | 'hi';
 
 const dict = {
   en: {
-    appName: 'Pakkam',
+    appName: 'Namma Pakkam',
     tagline: 'Your community, one tap away',
     directory: 'Directory',
     classifieds: 'Classifieds',
@@ -47,7 +47,7 @@ const dict = {
     more: 'More',
   },
   ta: {
-    appName: 'பக்கம்',
+    appName: 'நம்ம பக்கம்',
     tagline: 'உங்கள் சமூகம், ஒரு தொடுதலில்',
     directory: 'பட்டியல்',
     classifieds: 'விற்பனை',
@@ -88,7 +88,7 @@ const dict = {
     more: 'மேலும்',
   },
   hi: {
-    appName: 'पक्कम',
+    appName: 'नम्मा पक्कम',
     tagline: 'आपका समुदाय, एक टैप दूर',
     directory: 'निर्देशिका',
     classifieds: 'खरीद-बिक्री',

@@ -5,7 +5,7 @@ export const MOCK_BLOCKS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 // Multiple communities so the generic landing page can showcase expansion.
 export const MOCK_COMMUNITIES: Community[] = [
-  { id: 'm', slug: 'pakkam', name: 'Namma Pakkam', city: 'Coimbatore', blocks: MOCK_BLOCKS, image_url: null, homes: 1000, status: 'active', theme: 'from-brand-400 to-brand-600', emoji: '🏡' },
+  { id: 'm', slug: 'pakkam', name: 'Pakkam Residency', city: 'Coimbatore', blocks: MOCK_BLOCKS, image_url: null, homes: 1000, status: 'active', theme: 'from-brand-400 to-brand-600', emoji: '🏡' },
   { id: 'm2', slug: 'green-meadows', name: 'Green Meadows', city: 'Coimbatore', blocks: ['A', 'B', 'C'], image_url: null, homes: 480, status: 'coming_soon', theme: 'from-emerald-400 to-emerald-600', emoji: '🌿' },
   { id: 'm3', slug: 'lake-view', name: 'Lake View Residency', city: 'Chennai', blocks: ['1', '2', '3', '4'], image_url: null, homes: 720, status: 'coming_soon', theme: 'from-sky-400 to-indigo-500', emoji: '🌊' },
 ];

@@ -6,7 +6,7 @@ import SponsorStrip from '@/components/SponsorStrip';
 import Analytics from '@/components/Analytics';
 
 export const metadata: Metadata = {
-  title: 'Pakkam — Community Directory',
+  title: 'Namma Pakkam — Community Directory',
   description: 'Your apartment community directory, classifieds & noticeboard.',
   manifest: '/manifest.webmanifest',
 };

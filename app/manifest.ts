@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Pakkam — Community Directory',
-    short_name: 'Pakkam',
+    name: 'Namma Pakkam — Community Directory',
+    short_name: 'Namma Pakkam',
     description: 'Your apartment community directory, classifieds & noticeboard.',
     start_url: '/',
     display: 'standalone',
