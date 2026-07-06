@@ -19,18 +19,45 @@ export interface DirectoryFilter {
 }
 
 // ── Communities ─────────────────────────────────────────────────────────────
+const CARD_THEMES = [
+  'from-brand-400 to-brand-600',
+  'from-emerald-400 to-emerald-600',
+  'from-sky-400 to-indigo-500',
+  'from-rose-400 to-pink-500',
+  'from-amber-400 to-orange-500',
+];
+
+// The base `communities` table only has slug/name/city/blocks/logo_url. Fill the
+// presentation fields (status/theme/emoji/…) with defaults so the UI works even
+// before those optional columns exist. New/active communities default to active.
+function normalizeCommunity(row: any, i = 0): Community {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    city: row.city ?? null,
+    blocks: row.blocks ?? [],
+    image_url: row.image_url ?? row.logo_url ?? null,
+    homes: row.homes ?? null,
+    status: (row.status as Community['status']) ?? 'active',
+    theme: row.theme ?? CARD_THEMES[i % CARD_THEMES.length],
+    emoji: row.emoji ?? '🏡',
+  };
+}
+
 export async function getCommunities(): Promise<Community[]> {
   if (!isSupabaseConfigured) return MOCK_COMMUNITIES;
   const sb = await createClient();
   const { data } = await sb.from('communities').select('*').order('created_at');
-  return (data as Community[]) ?? MOCK_COMMUNITIES;
+  if (!data) return MOCK_COMMUNITIES;
+  return (data as any[]).map((r, i) => normalizeCommunity(r, i));
 }
 
 export async function getCommunityBySlug(slug: string): Promise<Community | null> {
   if (!isSupabaseConfigured) return MOCK_COMMUNITIES.find((c) => c.slug === slug) ?? null;
   const sb = await createClient();
   const { data } = await sb.from('communities').select('*').eq('slug', slug).single();
-  return (data as Community) ?? null;
+  return data ? normalizeCommunity(data) : null;
 }
 
 // Resolve a slug → community id for scoping real queries.
