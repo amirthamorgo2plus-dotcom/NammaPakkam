@@ -45,5 +45,18 @@ export async function POST(req: Request) {
   const { error } = await admin.from('businesses').insert(payload);
   if (error) return NextResponse.json({ message: error.message }, { status: 500 });
 
+  // Best-effort audit (as the importing admin, via their session client).
+  try {
+    await sb.rpc('log_audit', {
+      p_action: 'listing.bulk_import',
+      p_entity_type: 'business',
+      p_entity_id: null,
+      p_community_id: me.community_id,
+      p_meta: { count: payload.length },
+    });
+  } catch {
+    /* audit is best-effort */
+  }
+
   return NextResponse.json({ message: `✅ Imported ${payload.length} businesses` });
 }
