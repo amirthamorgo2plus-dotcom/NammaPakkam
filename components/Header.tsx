@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useI18n, type Lang } from '@/lib/i18n';
+import { useTheme } from '@/lib/theme';
 import { useCommunityBase } from '@/hooks/useCommunityBase';
 
 export default function Header() {
   const { t, lang, setLang } = useI18n();
+  const { theme, toggle } = useTheme();
   const pathname = usePathname();
   const base = useCommunityBase(); // "/c/<slug>" inside a community, else ""
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,6 +28,7 @@ export default function Header() {
   const menuLinks = [
     ...(base ? [{ href: `${base}/business/new`, label: t.addListing, icon: '➕' }] : []),
     { href: '/achievers', label: t.achievers, icon: '🌟' },
+    { href: '/schemes', label: t.schemes, icon: '🏛️' },
     { href: '/blog', label: t.blog, icon: '✍️' },
     { href: '/social', label: t.social, icon: '🤝' },
     { href: '/join', label: t.signup, icon: '📣' },
@@ -35,7 +38,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 bg-brand-500 text-white">
+      <header className="appbar sticky top-0 z-30">
         <div className="flex items-center justify-between px-4 py-3">
           <Link href={base || '/'} className="flex items-center gap-2">
             <span className="text-2xl">🧡</span>
@@ -59,6 +62,13 @@ export default function Header() {
                 </button>
               ))}
             </div>
+            <button
+              onClick={toggle}
+              className="rounded-lg bg-white/15 px-2.5 py-1 text-base leading-none"
+              aria-label="Toggle dark mode"
+            >
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
             <Link href="/login" className="rounded-lg bg-white/15 px-3 py-1 text-sm font-semibold">
               {t.login}
             </Link>

@@ -28,6 +28,28 @@ export interface Initiative {
   status: 'ongoing' | 'done' | 'upcoming';
 }
 
+export interface Scheme {
+  id: string;
+  name: string;
+  scope: 'National' | 'Tamil Nadu';
+  who: string;
+  desc: string;
+  emoji: string;
+}
+
+// Real government schemes that help women entrepreneurs. Details change — always
+// verify on the official portal before applying (disclaimer shown on the page).
+export const SCHEMES: Scheme[] = [
+  { id: 's1', name: 'PM MUDRA Yojana', scope: 'National', who: 'Micro & small businesses', emoji: '💳', desc: 'Collateral-free loans up to ₹10 lakh (Shishu/Kishore/Tarun). Women borrowers get priority and often lower interest.' },
+  { id: 's2', name: 'Stand-Up India', scope: 'National', who: 'Women / SC / ST founders', emoji: '🚀', desc: 'Bank loans of ₹10 lakh–₹1 crore for at least one woman entrepreneur per branch to set up a new enterprise.' },
+  { id: 's3', name: 'Stree Shakti / Mahila Udyam Nidhi', scope: 'National', who: 'Women-owned enterprises', emoji: '🌸', desc: 'Bank packages with interest concessions and margin-money support for businesses majority-owned by women.' },
+  { id: 's4', name: 'Annapurna Scheme', scope: 'National', who: 'Home food & catering', emoji: '🍲', desc: 'Loan for women in the food-catering business — to buy utensils, equipment and working capital.' },
+  { id: 's5', name: 'Udyam Registration (MSME)', scope: 'National', who: 'Any small business', emoji: '📝', desc: 'Free online MSME registration — unlocks priority lending, subsidies and government-scheme eligibility. Start here.' },
+  { id: 's6', name: 'Magalir Urimai Thogai', scope: 'Tamil Nadu', who: 'Women heads of family', emoji: '👩', desc: 'Monthly financial assistance to eligible women — a support base while building a home enterprise.' },
+  { id: 's7', name: 'TNCDW – Mahalir Thittam / SHGs', scope: 'Tamil Nadu', who: 'Self-help group members', emoji: '🤝', desc: 'Tamil Nadu Corporation for Development of Women: SHG bank linkage, low-interest loans and skill training.' },
+  { id: 's8', name: 'NEEDS', scope: 'Tamil Nadu', who: 'Educated women entrepreneurs', emoji: '🎓', desc: 'New Entrepreneur-cum-Enterprise Development Scheme — subsidy + soft loan and training to start a first enterprise.' },
+];
+
 export const ACHIEVERS: Achiever[] = [
   { id: 'a1', name: 'Saroja Devi', block: 'A', title: 'Amma Kitchen · 40+ daily tiffins', story: 'Started with 5 lunch boxes for neighbours during lockdown, now feeds 40 families every day — all from her home kitchen.', emoji: '🍱' },
   { id: 'a2', name: 'Lakshmi R', block: 'B', title: 'Maths tutor · 100+ students', story: 'Guided over 100 kids through board exams in 6 years. Several of her students now study engineering and medicine.', emoji: '📚' },

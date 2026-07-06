@@ -45,6 +45,10 @@ const dict = {
     addPhotos: 'Add photos',
     photosOptional: 'Photos optional · up to 3',
     more: 'More',
+    schemes: "Women's Schemes",
+    growTogether: 'We grow together',
+    womenFocus: 'A community that puts its women entrepreneurs first',
+    seeSchemes: 'Govt schemes for women',
   },
   ta: {
     appName: 'நம்ம பக்கம்',
@@ -86,6 +90,10 @@ const dict = {
     addPhotos: 'படங்களைச் சேர்',
     photosOptional: 'படங்கள் விருப்பம் · 3 வரை',
     more: 'மேலும்',
+    schemes: 'மகளிர் திட்டங்கள்',
+    growTogether: 'ஒன்றாக வளர்வோம்',
+    womenFocus: 'பெண் தொழில்முனைவோரை முதன்மைப்படுத்தும் சமூகம்',
+    seeSchemes: 'பெண்களுக்கான அரசு திட்டங்கள்',
   },
   hi: {
     appName: 'नम्मा पक्कम',
@@ -127,6 +135,10 @@ const dict = {
     addPhotos: 'फ़ोटो जोड़ें',
     photosOptional: 'फ़ोटो वैकल्पिक · अधिकतम 3',
     more: 'और',
+    schemes: 'महिला योजनाएं',
+    growTogether: 'हम साथ बढ़ते हैं',
+    womenFocus: 'महिला उद्यमियों को प्राथमिकता देने वाला समुदाय',
+    seeSchemes: 'महिलाओं के लिए सरकारी योजनाएं',
   },
 };
 

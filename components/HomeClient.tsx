@@ -43,6 +43,31 @@ export default function HomeClient({
         </Link>
       )}
 
+      {/* Mission / values — women entrepreneur focus */}
+      <section className="card overflow-hidden">
+        <div className="bg-brand-50 border-b border-brand-100 p-4">
+          <h2 className="font-bold text-stone-800 text-lg">🌸 {t.growTogether}</h2>
+          <p className="text-sm text-stone-600 mt-1">{t.womenFocus}.</p>
+        </div>
+        <div className="grid grid-cols-3 divide-x divide-sand-100 text-center">
+          {[
+            { icon: '🤝', label: 'Trust first', sub: 'Verified neighbours' },
+            { icon: '💪', label: 'Women-led', sub: 'Home businesses grow' },
+            { icon: '📈', label: 'Grow together', sub: 'Support stays local' },
+          ].map((v) => (
+            <div key={v.label} className="p-3">
+              <div className="text-2xl">{v.icon}</div>
+              <div className="text-xs font-semibold text-stone-700 mt-1">{v.label}</div>
+              <div className="text-[10px] text-stone-500">{v.sub}</div>
+            </div>
+          ))}
+        </div>
+        <Link href="/schemes" className="flex items-center justify-between px-4 py-3 border-t border-sand-100 text-sm font-medium text-brand-600">
+          🏛️ {t.seeSchemes}
+          <span>→</span>
+        </Link>
+      </section>
+
       {/* Community blocks */}
       <section>
         <h2 className="mb-2 font-bold text-stone-700">{t.blocks}</h2>

@@ -13,9 +13,11 @@ export default function CommunitiesClient({ communities }: { communities: Commun
       <div className="text-center space-y-2">
         <div className="text-4xl">🧡</div>
         <h1 className="text-2xl font-bold text-stone-800">{t.appName}</h1>
-        <p className="text-stone-500 text-sm max-w-xs mx-auto">
-          {t.tagline} — pick your community to see local businesses, services & notices.
+        <p className="text-stone-600 text-sm max-w-sm mx-auto">
+          🌸 {t.womenFocus} — discover the tiffin makers, tutors, tailors &amp; home
+          businesses run by the women next door.
         </p>
+        <p className="text-stone-400 text-xs">Pick your community to begin.</p>
       </div>
 
       {/* Community cards */}
