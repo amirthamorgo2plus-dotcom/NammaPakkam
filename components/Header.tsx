@@ -50,20 +50,17 @@ export default function Header() {
             </div>
           </Link>
           <div className="flex items-center gap-2">
-            <div className="flex items-center rounded-lg bg-brand-600/60 p-0.5 text-xs font-semibold" role="group" aria-label="Language">
-              {(['en', 'ta', 'hi'] as Lang[]).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l)}
-                  className={`rounded-md px-2 py-0.5 transition ${
-                    lang === l ? 'bg-white text-brand-600' : 'text-white/90'
-                  }`}
-                  aria-pressed={lang === l}
-                >
-                  {l === 'en' ? 'EN' : l === 'ta' ? 'த' : 'हि'}
-                </button>
-              ))}
-            </div>
+            <button
+              onClick={() => {
+                const order: Lang[] = ['en', 'ta', 'hi'];
+                setLang(order[(order.indexOf(lang) + 1) % order.length]);
+              }}
+              className="rounded-lg bg-white/15 px-2.5 py-1 text-lg leading-none"
+              aria-label="Change language"
+              title={lang === 'en' ? 'English' : lang === 'ta' ? 'தமிழ்' : 'हिन्दी'}
+            >
+              🌐
+            </button>
             <button
               onClick={toggle}
               className="rounded-lg bg-white/15 px-2.5 py-1 text-base leading-none"
