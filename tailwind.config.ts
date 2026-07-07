@@ -5,27 +5,39 @@ const config: Config = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
       colors: {
-        // Warm, friendly community palette
+        // Soft, feminine "women's theme" palette — rose/berry + lavender + blush.
         brand: {
-          50: '#fff8f1',
-          100: '#feecdc',
-          200: '#fcd9bd',
-          300: '#fdba8c',
-          400: '#ff8a4c',
-          500: '#ff5a1f',
-          600: '#d03801',
-          700: '#b43403',
-          800: '#8a2c0d',
-          900: '#73230d',
+          50: '#fdf4f7',
+          100: '#fbe3ec',
+          200: '#f6c6da',
+          300: '#ee9fbd',
+          400: '#e27aa0',
+          500: '#c85680', // primary — berry rose
+          600: '#b0426a',
+          700: '#8f3355',
+          800: '#742a44',
+          900: '#5f2438',
         },
+        // Lavender/violet secondary
+        lav: {
+          50: '#f6f3fa',
+          100: '#ece7f3',
+          200: '#d9cfe8',
+          300: '#c3b3da',
+          400: '#a98fc7',
+          500: '#9575b3',
+          600: '#7d5c9b',
+        },
+        // Blush-cream neutrals (backgrounds / borders)
         sand: {
-          50: '#faf7f2',
-          100: '#f2ece1',
-          200: '#e4d8c5',
+          50: '#fbf6f8',
+          100: '#f5eaf0',
+          200: '#e9d5df',
         },
       },
       fontFamily: {

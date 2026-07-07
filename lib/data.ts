@@ -21,10 +21,10 @@ export interface DirectoryFilter {
 // ── Communities ─────────────────────────────────────────────────────────────
 const CARD_THEMES = [
   'from-brand-400 to-brand-600',
-  'from-emerald-400 to-emerald-600',
-  'from-sky-400 to-indigo-500',
-  'from-rose-400 to-pink-500',
-  'from-amber-400 to-orange-500',
+  'from-lav-400 to-lav-600',
+  'from-pink-400 to-brand-500',
+  'from-brand-300 to-lav-500',
+  'from-fuchsia-400 to-brand-600',
 ];
 
 // The base `communities` table only has slug/name/city/blocks/logo_url. Fill the
