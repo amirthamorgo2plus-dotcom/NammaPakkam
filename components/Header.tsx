@@ -29,8 +29,10 @@ export default function Header() {
     ...(base ? [{ href: `${base}/business/new`, label: t.addListing, icon: '➕' }] : []),
     { href: '/achievers', label: t.achievers, icon: '🌟' },
     { href: '/schemes', label: t.schemes, icon: '🏛️' },
+    { href: '/explore', label: t.explore, icon: '🧭' },
     { href: '/blog', label: t.blog, icon: '✍️' },
     { href: '/social', label: t.social, icon: '🤝' },
+    { href: '/about', label: t.about, icon: 'ℹ️' },
     { href: '/join', label: t.signup, icon: '📣' },
     { href: '/', label: t.blocks + ' ▸ All', icon: '🏘️' }, // back to community picker
     { href: '/admin', label: t.admin, icon: '🛠️' },

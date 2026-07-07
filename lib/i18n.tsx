@@ -49,6 +49,9 @@ const dict = {
     growTogether: 'We grow together',
     womenFocus: 'A community that puts its women entrepreneurs first',
     seeSchemes: 'Govt schemes for women',
+    explore: 'Discover Coimbatore',
+    about: 'About Us',
+    exploreSub: 'Temples, malls, parks & places nearby',
   },
   ta: {
     appName: 'நம்ம பக்கம்',
@@ -94,6 +97,9 @@ const dict = {
     growTogether: 'ஒன்றாக வளர்வோம்',
     womenFocus: 'பெண் தொழில்முனைவோரை முதன்மைப்படுத்தும் சமூகம்',
     seeSchemes: 'பெண்களுக்கான அரசு திட்டங்கள்',
+    explore: 'கோயம்புத்தூரை அறிக',
+    about: 'எங்களைப் பற்றி',
+    exploreSub: 'கோவில்கள், மால்கள், பூங்காக்கள் அருகில்',
   },
   hi: {
     appName: 'नम्मा पक्कम',
@@ -139,6 +145,9 @@ const dict = {
     growTogether: 'हम साथ बढ़ते हैं',
     womenFocus: 'महिला उद्यमियों को प्राथमिकता देने वाला समुदाय',
     seeSchemes: 'महिलाओं के लिए सरकारी योजनाएं',
+    explore: 'कोयंबटूर जानें',
+    about: 'हमारे बारे में',
+    exploreSub: 'मंदिर, मॉल, पार्क और आसपास की जगहें',
   },
 };
 

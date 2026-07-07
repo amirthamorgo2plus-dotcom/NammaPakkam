@@ -66,6 +66,10 @@ export default function HomeClient({
           🏛️ {t.seeSchemes}
           <span>→</span>
         </Link>
+        <Link href="/explore" className="flex items-center justify-between px-4 py-3 border-t border-sand-100 text-sm font-medium text-brand-600">
+          🧭 {t.explore}
+          <span>→</span>
+        </Link>
       </section>
 
       {/* Community blocks */}
